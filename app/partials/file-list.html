@@ -1,0 +1,45 @@
+<div class="row" ng-controller="FileListCtrl">
+  <div class="col-md-2"></div>
+  <div class="col-md-8">
+    <table class="table">
+      <tr>
+        <th>
+          Name
+        </th>
+        <th>
+        </th>
+        <th>
+        </th>
+        <th>
+        </th>
+      </tr>
+      <tr ng-repeat="video in videos">
+      <td>
+        {{video}}
+      </td>
+      <td>
+        <a href="#/home" class="btn btn-info" role="button">Download</a>
+      </td>
+        <td>
+          <a href="#/home" class="btn btn-info" role="button">Delete</a>
+        </td>
+        <td>
+        <script type="text/ng-template" id="myModalContent.html">
+            <div class="modal-header">
+                <h3 class="modal-title">Aufnahme</h3>
+            </div>
+            <div class="modal-body">
+              <video controls="controls" src="/files/01-20150508000756.mp4"></video>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+            </div>
+        </script>
+
+        <button class="btn btn-default" ng-click="open()">Ansehen</button>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div class="col-md-2"></div>
+</div>

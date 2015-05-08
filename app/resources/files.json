@@ -1,0 +1,10 @@
+[
+    {
+		"name": "testvid1.mp4",
+		"path": "resources/testvid1.mp4"
+    }, 
+    {
+		"name": "testvid2.mp4",
+		"path": "resources/testvid2.mp4"
+    }
+]
