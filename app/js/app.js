@@ -34,6 +34,10 @@ phonecatApp.config(['$routeProvider',
         templateUrl: 'partials/config.html',
         controller: 'ConfigCtrl'
       }).
+      when('/apidocu', {
+        templateUrl: 'partials/api-docu.html',
+        controller: 'ApiDocuCtrl'
+      }).
       otherwise({
         redirectTo: '/home'
       });

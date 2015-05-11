@@ -18,7 +18,10 @@
         {{video}}
       </td>
       <td>
-        <a href="#/home" class="btn btn-info" role="button">Download</a>
+        <a href="http://raspberrydh.ddns.net/video/mp4/{{video}}" class="btn btn-info" role="button">Download</a>
+        <!--<form class="button_to" method="get" action="http://raspberrydh.ddns.net/video/mp4/{{video}}">
+          <input class="btn btn-default" type="submit" value="Download">
+        </form>-->
       </td>
         <td>
           <a href="#/home" class="btn btn-info" role="button">Delete</a>
@@ -29,7 +32,7 @@
                 <h3 class="modal-title">Aufnahme</h3>
             </div>
             <div class="modal-body">
-              <video controls="controls" src="/files/01-20150508000756.mp4"></video>
+              <video controls="controls" src="{{completeUrl}}"></video>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-warning" ng-click="cancel()">Cancel</button>

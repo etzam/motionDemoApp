@@ -1,0 +1,38 @@
+<div class="container-fluid" ng-controller="ApiDocuCtrl">
+  <div class="row">
+    <h2>Schnittstellendokumentation des Webservices</h2>
+    <div class="col-md-2">
+      <!--Sidebar content-->
+      Search: <input ng-model="query">
+    </div>
+    <div class="col-md-10">
+      <!--Body content-->
+      <table class="table">
+        <tr>
+          <th>
+            URL-Name
+          </th>
+          <th>
+            Aktion
+          </th>
+          <th>
+            Beschreibung
+          </th>
+        </tr>
+        <tr ng-repeat="apidocu in apidocus | filter:query">
+        <td>
+          {{apidocu.name}}
+        </td>
+        <td>
+          {{apidocu.action}}
+        </td>
+        <td>
+          {{apidocu.description}}
+        </td>
+        </tr>
+
+      </table>
+
+    </div>
+  </div>
+</div>

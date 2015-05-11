@@ -23,3 +23,10 @@ phonecatServices.factory('Phone', ['$resource',
       query: {method:'GET', isArray:false}
       });
   }]);
+
+phonecatServices.factory('ApiDocu', ['$resource',
+    function($resource){
+      return $resource('resources/api-docu.json', {}, {
+        query: {method:'GET', isArray:true}
+      });
+    }]);

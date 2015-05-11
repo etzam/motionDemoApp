@@ -27,6 +27,12 @@ phonecatControllers.controller('PhoneDetailCtrl', ['$scope', '$routeParams', 'Ph
       $scope.orderProp = 'age';
     }]);
 
+phonecatControllers.controller('ApiDocuCtrl', ['$scope', 'ApiDocu',
+    function($scope, ApiDocu) {
+      $scope.apidocus = ApiDocu.query();
+      console.log($scope.apidocus);
+    }]);
+
   phonecatControllers.controller('ConfigCtrl', ['$scope', 'Config',
       function($scope, Config) {
         $scope.orderProp = 'age';
@@ -41,7 +47,6 @@ phonecatControllers.controller('PhoneDetailCtrl', ['$scope', '$routeParams', 'Ph
           }
         ];
        $scope.configs = Config.query();
-       console.log($scope.configs);
       }]);
 
   phonecatControllers.controller('FileListCtrl', ['$scope', '$modal', '$log', 'Video',
@@ -81,5 +86,6 @@ phonecatControllers.controller('PhoneDetailCtrl', ['$scope', '$routeParams', 'Ph
       phonecatControllers.controller('ModalInstanceCtrl', function ($scope, $modalInstance) {
         $scope.cancel = function () {
           $modalInstance.dismiss('cancel');
+          $scope.completeUrl = "http://raspberrydh.ddns.net/video/mp4/";
         };
       });
