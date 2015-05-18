@@ -35,18 +35,8 @@ phonecatControllers.controller('ApiDocuCtrl', ['$scope', 'ApiDocu',
 
   phonecatControllers.controller('ConfigCtrl', ['$scope', 'Config',
       function($scope, Config) {
-        $scope.orderProp = 'age';
-        $scope.settings = [
-          {
-            'key' : 'framerate',
-            'value':'2'
-          },
-          {
-            'key': 'width',
-            'value': '320'
-          }
-        ];
-       $scope.configs = Config.query();
+          $scope.new_vaule = '';
+          $scope.configs = Config.query();
       }]);
 
   phonecatControllers.controller('FileListCtrl', ['$scope', '$modal', '$log', 'Video',

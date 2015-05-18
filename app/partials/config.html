@@ -15,7 +15,12 @@
         <tr ng-repeat="(key,value) in configs">
           <td>{{key}}</td>
           <td>{{value}}</td>
-          <td class="buttons">
+          <td>
+            <label>
+              neuer Wert:
+            <input ng-model="new_value" name="neuer_Wert">
+          </label>
+            <a href="http://raspberrydh.ddns.net/config/update?key={{key}}&value={{new_value}}" class="btn btn-default">Wert setzen</a>
           </td>
         </tr>
       </tr>

@@ -18,28 +18,33 @@
         {{video}}
       </td>
       <td>
-        <a href="http://raspberrydh.ddns.net/video/mp4/{{video}}" class="btn btn-info" role="button">Download</a>
+        <a href="http://raspberrydh.ddns.net/files/{{video}}" class="btn btn-info" role="button">Download</a>
         <!--<form class="button_to" method="get" action="http://raspberrydh.ddns.net/video/mp4/{{video}}">
           <input class="btn btn-default" type="submit" value="Download">
         </form>-->
       </td>
         <td>
-          <a href="#/home" class="btn btn-info" role="button">Delete</a>
+          <form class="button_to" method="delete" action="http://raspberrydh.ddns.net/files/delete/07-20150512092027.mp4">
+            <input class="btn btn-default" type="submit" value="Delete">
+          </form>
         </td>
         <td>
+      <!--
         <script type="text/ng-template" id="myModalContent.html">
             <div class="modal-header">
                 <h3 class="modal-title">Aufnahme</h3>
             </div>
             <div class="modal-body">
-              <video controls="controls" src="{{completeUrl}}"></video>
+              <video controls="controls" src="http://raspberrydh.ddns.net/files/{{video}}"></video>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
             </div>
         </script>
-
+        <video ng-src="http://raspberrydh.ddns.net/files/{{video}}" controls></video>
         <button class="btn btn-default" ng-click="open()">Ansehen</button>
+      -->
+        <a href="http://raspberrydh.ddns.net/video/mp4/{{video}}"> Video ansehen</a>
         </td>
       </tr>
     </table>
