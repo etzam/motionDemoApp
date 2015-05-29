@@ -4,24 +4,19 @@
 
 var phonecatApp = angular.module('phonecatApp', [
   'ngRoute',
-  'phonecatAnimations',
-
   'phonecatControllers',
   'phonecatFilters',
   'phonecatServices'
-]);
+])
+.run(function ($rootScope) {
+  $rootScope.password = {};
+  $rootScope.password.value = '1';
+  $rootScope.authenticated = false;
+});
 
 phonecatApp.config(['$routeProvider',
   function($routeProvider) {
     $routeProvider.
-      when('/phones', {
-        templateUrl: 'partials/phone-list.html',
-        controller: 'PhoneListCtrl'
-      }).
-      when('/phones/:phoneId', {
-        templateUrl: 'partials/phone-detail.html',
-        controller: 'PhoneDetailCtrl'
-      }).
       when('/home', {
         templateUrl: 'partials/home.html',
         controller: 'HomeCtrl'

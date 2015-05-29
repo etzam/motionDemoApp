@@ -5,7 +5,6 @@
   <title>Motion-Demo</title>
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
   <link rel="stylesheet" href="css/app.css">
-  <link rel="stylesheet" href="css/animations.css">
 
   <script src="bower_components/jquery/dist/jquery.js"></script>
   <script src="bower_components/angular/angular.js"></script>
@@ -13,7 +12,6 @@
   <script src="bower_components/angular-route/angular-route.js"></script>
   <script src="bower_components/angular-resource/angular-resource.js"></script>
   <script src="js/app.js"></script>
-  <script src="js/animations.js"></script>
   <script src="js/controllers.js"></script>
   <script src="js/filters.js"></script>
   <script src="js/services.js"></script>
@@ -63,8 +61,18 @@
       </div>
   </div>
 
-  <div class="view-container">
-    <div ng-view class="view-frame"></div>
+  <div class="view-container" >
+  <div ng-if="authenticated">
+    <div ng-controller="loginCtrl">
+      <p>Der Zugriff auf die Anwendung ist kennwortgeschützt!</p>
+      <form>
+      Geben Sie bitte das Passwort ein: <input type="password" ng-model="user_password" required />
+      <br>
+      <input type="submit" ng-click="checkPassword(user_password)" value="Sichern" />
+      </form>
+    </div>
+  </div>
+  <div ng-view class="view-frame" ng-if="!authenticated"></div>
   </div>
 
 </body>
