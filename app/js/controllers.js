@@ -14,17 +14,15 @@ phonecatControllers.controller('ApiDocuCtrl', ['$scope', 'ApiDocu',
       $scope.apidocus = ApiDocu.query();
     }]);
 
-  phonecatControllers.controller('ConfigCtrl', ['$scope', '$rootScope','Config', 'PurgeTime', 'SetPurgeTime',
-      function($scope, $rootScope, Config, PurgeTime, SetPurgeTime) {
+  phonecatControllers.controller('ConfigCtrl', ['$scope', '$rootScope','Config', 'PurgeTime', 'SetPurgeTime', 'Beep', 'SetBeep',
+      function($scope, $rootScope, Config, PurgeTime, SetPurgeTime, Beep, SetBeep) {
 
           //motion-config
           $scope.configs = Config.query();
-          console.log($scope.configs);
 
           //Purge-time
           $scope.purgeTime = PurgeTime.query();
           var pt = $scope.purgeTime;
-
 
           //Passwort
           $scope.updatePassword = function(new_password) {
@@ -44,6 +42,29 @@ phonecatControllers.controller('ApiDocuCtrl', ['$scope', 'ApiDocu',
             SetPurgeTime.update({days_to_purge:pt.days_to_purge}, pt);
           };
 
+          //beep_vaule
+          $scope.beep = Beep.query();
+
+          console.log($scope.beep);
+          if ($scope.beep.beep_value == 'on')
+            $scope.currentBeep = true
+          else
+            $scope.currentBeep = false;
+
+          $scope.EnableBeepValue = function () {
+            console.log('einschalten');
+            $scope.currentBeep = true;
+            $scope.beep.beep_value = 'on';
+            SetBeep.update({beep_value:$scope.beep.beep_value}, $scope.beep);
+          };
+
+          $scope.DisableBeepValue = function () {
+            console.log('ausschalten');
+            $scope.currentBeep = false;
+            $scope.beep.beep_value = 'off';
+            SetBeep.update({beep_value:$scope.beep.beep_value}, $scope.beep);
+          };
+
       }]);
 
   phonecatControllers.controller('FileListCtrl', ['$scope', '$modal', '$log', 'Video', 'DeleteVideo',
@@ -52,8 +73,9 @@ phonecatControllers.controller('ApiDocuCtrl', ['$scope', 'ApiDocu',
 
         $scope.deleteVideo= function(video) { // Delete a movie. Issues a DELETE to /api/movies/:id
             console.log(video);
-             DeleteVideo.delete({filename: video});
+             DeleteVideo.delete_video({filename: video});
            };
+
 
 
         $scope.open = function (size) {

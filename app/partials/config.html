@@ -32,18 +32,31 @@
           </th>
           <tr>
             <td>
+              Alarmton (on/off)
+            </td>
+            <td>
+              {{beep.beep_value}}
+            </td>
+            <td>
+              <input class="btn btn-default" ng-if="currentBeep" type="submit" value="ausschalten" ng-click="DisableBeepValue()">
+              <input class="btn btn-default" ng-if="!currentBeep" type="submit" value="einschalten" ng-click="EnableBeepValue()">
+            </td>
+            <td>
+            </td>
+          </tr>
+          <tr>
+            <td>
               Aufzeichnungen löschen (nach Tagen)
             </td>
             <td>
               {{purgeTime.days_to_purge}}
             </td>
             <td>
-
             </td>
             <td>
               <form>
                 <input ng-model="new_purge_value" name="new_purge_value">
-                <input type="submit" ng-click="setPurgeValue(new_purge_value)" value="Wert setzen" />
+                <input type="submit" class="btn btn-default" ng-click="setPurgeValue(new_purge_value)" value="Wert setzen" />
               </form>
             </td>
           </tr>
