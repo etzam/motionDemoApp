@@ -62,7 +62,7 @@
   </div>
 
   <div class="view-container" >
-  <div ng-if="authenticated">
+  <div ng-if="!authenticated">
     <div ng-controller="loginCtrl">
       <p>Der Zugriff auf die Anwendung ist kennwortgeschützt!</p>
       <form>
@@ -72,7 +72,7 @@
       </form>
     </div>
   </div>
-  <div ng-view class="view-frame" ng-if="!authenticated"></div>
+  <div ng-view class="view-frame" ng-if="authenticated"></div>
   </div>
 
 </body>

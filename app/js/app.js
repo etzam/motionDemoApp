@@ -10,7 +10,7 @@ var phonecatApp = angular.module('phonecatApp', [
 ])
 .run(function ($rootScope) {
   $rootScope.password = {};
-  $rootScope.password.value = '1';
+  $rootScope.password.value = 'welcome';
   $rootScope.authenticated = false;
 });
 
