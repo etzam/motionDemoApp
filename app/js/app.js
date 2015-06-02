@@ -2,19 +2,21 @@
 
 /* App Module */
 
-var phonecatApp = angular.module('phonecatApp', [
+var motionDemoApp = angular.module('motionDemoApp', [
   'ngRoute',
-  'phonecatControllers',
-  'phonecatFilters',
-  'phonecatServices'
+  'motionDemoControllers',
+  'motionDemoFilters',
+  'motionDemoServices'
 ])
 .run(function ($rootScope) {
   $rootScope.password = {};
   $rootScope.password.value = 'welcome';
   $rootScope.authenticated = false;
+  $rootScope.connected = false;
+  $rootScope.webservice_address = "";
 });
 
-phonecatApp.config(['$routeProvider',
+motionDemoApp.config(['$routeProvider',
   function($routeProvider) {
     $routeProvider.
       when('/home', {

@@ -2,19 +2,19 @@
 
 /* Controllers */
 
-var phonecatControllers = angular.module('phonecatControllers', ['ui.bootstrap']);
+var motionDemoControllers = angular.module('motionDemoControllers', ['ui.bootstrap']);
 
-  phonecatControllers.controller('HomeCtrl', ['$scope',
+  motionDemoControllers.controller('HomeCtrl', ['$scope',
     function($scope) {
       $scope.orderProp = 'age';
     }]);
 
-phonecatControllers.controller('ApiDocuCtrl', ['$scope', 'ApiDocu',
+motionDemoControllers.controller('ApiDocuCtrl', ['$scope', 'ApiDocu',
     function($scope, ApiDocu) {
       $scope.apidocus = ApiDocu.query();
     }]);
 
-  phonecatControllers.controller('ConfigCtrl', ['$scope', '$rootScope','Config', 'PurgeTime', 'SetPurgeTime', 'Beep', 'SetBeep',
+  motionDemoControllers.controller('ConfigCtrl', ['$scope', '$rootScope','Config', 'PurgeTime', 'SetPurgeTime', 'Beep', 'SetBeep',
       function($scope, $rootScope, Config, PurgeTime, SetPurgeTime, Beep, SetBeep) {
 
           //motion-config
@@ -67,7 +67,7 @@ phonecatControllers.controller('ApiDocuCtrl', ['$scope', 'ApiDocu',
 
       }]);
 
-  phonecatControllers.controller('FileListCtrl', ['$scope', '$modal', '$log', 'Video', 'DeleteVideo',
+  motionDemoControllers.controller('FileListCtrl', ['$scope', '$modal', '$log', 'Video', 'DeleteVideo',
     function($scope, $modal, $log, Video, DeleteVideo) {
         $scope.videos = Video.query();
 
@@ -96,21 +96,37 @@ phonecatControllers.controller('ApiDocuCtrl', ['$scope', 'ApiDocu',
       // Please note that $modalInstance represents a modal window (instance) dependency.
       // It is not the same as the $modal service used above.
 
-    phonecatControllers.controller('ModalInstanceCtrl', function ($scope, $modalInstance) {
+    motionDemoControllers.controller('ModalInstanceCtrl', function ($scope, $modalInstance) {
         $scope.cancel = function () {
           $modalInstance.dismiss('cancel');
           $scope.completeUrl = "http://raspberrydh.ddns.net/video/mp4/";
         };
       });
 
-    phonecatControllers.controller('loginCtrl', ['$scope','$rootScope', '$location',
-     function ($scope, $rootScope, $location) {
+    motionDemoControllers.controller('loginCtrl', ['$scope','$rootScope', '$location', '$http',
+     function ($scope, $rootScope, $location, $http) {
         $scope.checkPassword = function (user_password) {
           if ($rootScope.password.value == user_password){
-                    $location.path('/home');
+                    $location.path('/config');
                     $rootScope.authenticated = true;
                   } else {
                     $rootScope.authenticated = false;
                   };
-        }
+        };
+
+        $scope.checkWebserviceAddress = function (address_webservice) {
+          $http.get(address_webservice).
+          success(function(data, status, headers, config) {
+              console.log("erfolgreich");
+              $rootScope.connected = true;
+              $rootScope.webservice_address = address_webservice;
+              $location.path('/home');
+              console.log($rootScope.webservice_address);
+          }).
+          error(function(data, status, headers, config) {
+            $rootScope.connected = false;
+            console.log("nicht erfolgreich");
+          });
+
+        };
       }]);

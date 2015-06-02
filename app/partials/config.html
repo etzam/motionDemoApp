@@ -1,80 +1,93 @@
-<div class="col-md-2"></div>
-<div class="col-md-8" ng-controller="ConfigCtrl">
 
-  <h3>Kennwort ändern:</h3>
-  <form novalidate class="css-form">
-    aktuelles Kennwort: <input type="text" ng-model="password.value" ng-disabled="true"/>
+<div ng-if="!authenticated">
+  <div ng-controller="loginCtrl">
+    <p>Der Zugriff auf die Konfigurationsoberfläche ist kennwortgeschützt!</p>
+    <form>
+    Geben Sie bitte das Passwort ein: <input type="password" ng-model="user_password" required />
     <br>
-    neues Kennwort: <input type="{{inputType}}" ng-model="new_password" placeholder="Put your password" />
-    <input type="checkbox" id="checkbox" ng-model="passwordCheckbox" ng-click="hideShowPassword()" />
-    <label for="checkbox" ng-if="passwordCheckbox">Hide password</label>
-    <label for="checkbox" ng-if="!passwordCheckbox">Show password</label>
-    <br>
-    <input type="submit" ng-click="updatePassword(new_password)" value="Sichern" />
-  </form>
-
-  <h3>Konfiguration ändern</h3>
-  <div class="row">
-
-      <table class="table">
-        <tr>
-          <th>
-            Konfigurationsname
-          </th>
-          <th>
-            aktuller Wert
-          </th>
-          <th>
-            vorgeschlagene Werte
-          </th>
-          <th>
-            anderer Wert
-          </th>
-          <tr>
-            <td>
-              Alarmton (on/off)
-            </td>
-            <td>
-              {{beep.beep_value}}
-            </td>
-            <td>
-              <input class="btn btn-default" ng-if="currentBeep" type="submit" value="ausschalten" ng-click="DisableBeepValue()">
-              <input class="btn btn-default" ng-if="!currentBeep" type="submit" value="einschalten" ng-click="EnableBeepValue()">
-            </td>
-            <td>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              Aufzeichnungen löschen (nach Tagen)
-            </td>
-            <td>
-              {{purgeTime.days_to_purge}}
-            </td>
-            <td>
-            </td>
-            <td>
-              <form>
-                <input ng-model="new_purge_value" name="new_purge_value">
-                <input type="submit" class="btn btn-default" ng-click="setPurgeValue(new_purge_value)" value="Wert setzen" />
-              </form>
-            </td>
-          </tr>
-          <tr ng-repeat="config in configs">
-            <td>{{config.key}}</td>
-            <td>{{config.current_value}}</td>
-            <td>
-              <div ng-repeat="allowedvalue in config.allowed_values" style="display:inline">
-                <a href="http://raspberrydh.ddns.net/config/update?key={{config.key}}&value={{allowedvalue}}" class="btn btn-default">{{allowedvalue}}</a>
-              </div>
-            </td>
-            <td>
-              <input ng-model="new_value" name="neuer_Wert">
-              <a href="http://raspberrydh.ddns.net/config/update?key={{config.key}}&value={{new_value}}" class="btn btn-default">Wert setzen</a>
-            </td>
-          </tr>
-        </tr>
-      </table>
+    <input type="submit" ng-click="checkPassword(user_password)" value="Sichern" />
+    </form>
   </div>
 </div>
-<div class="col-md-2"></div>
+<div ng-if="authenticated">
+  <div class="col-md-2"></div>
+  <div class="col-md-8" ng-controller="ConfigCtrl">
+
+    <h3>Kennwort ändern:</h3>
+    <form novalidate class="css-form">
+      aktuelles Kennwort: <input type="password" ng-model="password.value" ng-disabled="true"/>
+      <br>
+      neues Kennwort: <input type="{{inputType}}" ng-model="new_password" placeholder="Eingabe" />
+      <input type="checkbox" id="checkbox" ng-model="passwordCheckbox" ng-click="hideShowPassword()" />
+      <label for="checkbox" ng-if="passwordCheckbox">Hide password</label>
+      <label for="checkbox" ng-if="!passwordCheckbox">Show password</label>
+      <br>
+      <input type="submit" ng-click="updatePassword(new_password)" value="Sichern" />
+    </form>
+
+    <h3>Konfiguration ändern</h3>
+    <div class="row">
+
+        <table class="table">
+          <tr>
+            <th>
+              Konfigurationsname
+            </th>
+            <th>
+              aktuller Wert
+            </th>
+            <th>
+              vorgeschlagene Werte
+            </th>
+            <th>
+              anderer Wert
+            </th>
+            <tr>
+              <td>
+                Alarmton (on/off)
+              </td>
+              <td>
+                {{beep.beep_value}}
+              </td>
+              <td>
+                <input class="btn btn-default" ng-if="currentBeep" type="submit" value="ausschalten" ng-click="DisableBeepValue()">
+                <input class="btn btn-default" ng-if="!currentBeep" type="submit" value="einschalten" ng-click="EnableBeepValue()">
+              </td>
+              <td>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Aufzeichnungen löschen (nach Tagen)
+              </td>
+              <td>
+                {{purgeTime.days_to_purge}}
+              </td>
+              <td>
+              </td>
+              <td>
+                <form>
+                  <input ng-model="new_purge_value" name="new_purge_value">
+                  <input type="submit" class="btn btn-default" ng-click="setPurgeValue(new_purge_value)" value="Wert setzen" />
+                </form>
+              </td>
+            </tr>
+            <tr ng-repeat="config in configs">
+              <td>{{config.key}}</td>
+              <td>{{config.current_value}}</td>
+              <td>
+                <div ng-repeat="allowedvalue in config.allowed_values" style="display:inline">
+                  <a href="http://raspberrydh.ddns.net/config/update?key={{config.key}}&value={{allowedvalue}}" class="btn btn-default">{{allowedvalue}}</a>
+                </div>
+              </td>
+              <td>
+                <input ng-model="new_value" name="neuer_Wert">
+                <a href="http://raspberrydh.ddns.net/config/update?key={{config.key}}&value={{new_value}}" class="btn btn-default">Wert setzen</a>
+              </td>
+            </tr>
+          </tr>
+        </table>
+    </div>
+  </div>
+  <div class="col-md-2"></div>
+</div>

@@ -2,56 +2,56 @@
 
 /* Services */
 
-var phonecatServices = angular.module('phonecatServices', ['ngResource']);
+var motionDemoServices = angular.module('motionDemoServices', ['ngResource']);
 
-  phonecatServices.factory('Video', ['$resource',
+  motionDemoServices.factory('Video', ['$resource',
     function($resource) {
       return $resource('http://raspberrydh.ddns.net/files.json');
   }]);
 
-  phonecatServices.factory('DeleteVideo', ['$resource',
+  motionDemoServices.factory('DeleteVideo', ['$resource',
     function($resource) {
       return $resource('http://raspberrydh.ddns.net/files/delete/:filename', {}, {
       'delete_video': {method:'DELETE'}
       });
   }]);
 
-  phonecatServices.factory('Config', ['$resource',
+  motionDemoServices.factory('Config', ['$resource',
     function($resource) {
       return $resource('http://raspberrydh.ddns.net/config.json', {}, {
       query: {method:'GET', isArray:true}
       });
   }]);
 
-  phonecatServices.factory('PurgeTime', ['$resource',
+  motionDemoServices.factory('PurgeTime', ['$resource',
     function($resource) {
       return $resource('http://raspberrydh.ddns.net/config/purge.json', {}, {
       query: {method:'GET', isArray:false}
       });
   }]);
 
-  phonecatServices.factory('SetPurgeTime', ['$resource',
+  motionDemoServices.factory('SetPurgeTime', ['$resource',
     function($resource) {
       return $resource('http://raspberrydh.ddns.net/config/purge/update/:days_to_purge', {}, {
         'update': { method:'PUT', isArray:false}
       });
   }]);
 
-  phonecatServices.factory('Beep', ['$resource',
+  motionDemoServices.factory('Beep', ['$resource',
     function($resource) {
       return $resource('http://raspberrydh.ddns.net/config/beep.json', {}, {
       query: {method:'GET', isArray:false}
       });
   }]);
 
-  phonecatServices.factory('SetBeep', ['$resource',
+  motionDemoServices.factory('SetBeep', ['$resource',
     function($resource) {
       return $resource('http://raspberrydh.ddns.net/config/beep/:beep_value', {}, {
         'update': { method:'PUT', isArray:false}
       });
   }]);
 
-phonecatServices.factory('ApiDocu', ['$resource',
+motionDemoServices.factory('ApiDocu', ['$resource',
     function($resource){
       return $resource('resources/api-docu.json', {}, {
         query: {method:'GET', isArray:true}
