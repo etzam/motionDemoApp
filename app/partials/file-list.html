@@ -18,7 +18,7 @@
         {{video}}
       </td>
       <td>
-        <a href="http://raspberrydh.ddns.net/files/{{video}}" class="btn btn-info" role="button">Download</a>
+        <a href="{{webservice_address}}/files/{{video}}" class="btn btn-info" role="button">Download</a>
       </td>
         <td>
           <a class="btn btn-danger"  ng-click="deleteVideo(video)">Delete</a>
@@ -30,16 +30,16 @@
                 <h3 class="modal-title">Aufnahme</h3>
             </div>
             <div class="modal-body">
-              <video controls="controls" src="http://raspberrydh.ddns.net/files/{{video}}"></video>
+              <video controls="controls" src="{{webservice_address}}/files/{{video}}"></video>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
             </div>
         </script>
-        <video ng-src="http://raspberrydh.ddns.net/files/{{video}}" controls></video>
+        <video ng-src="{{webservice_address}}/files/{{video}}" controls></video>
         <button class="btn btn-default" ng-click="open()">Ansehen</button>
       -->
-        <a href="http://raspberrydh.ddns.net/video/mp4/{{video}}"> Video ansehen</a>
+        <a href="{{webservice_address}}/video/mp4/{{video}}"> Video ansehen</a>
         </td>
       </tr>
     </table>

@@ -16,7 +16,6 @@ motionDemoControllers.controller('ApiDocuCtrl', ['$scope', 'ApiDocu',
 
   motionDemoControllers.controller('ConfigCtrl', ['$scope', '$rootScope','Config', 'PurgeTime', 'SetPurgeTime', 'Beep', 'SetBeep',
       function($scope, $rootScope, Config, PurgeTime, SetPurgeTime, Beep, SetBeep) {
-
           //motion-config
           $scope.configs = Config.query();
 
@@ -67,8 +66,8 @@ motionDemoControllers.controller('ApiDocuCtrl', ['$scope', 'ApiDocu',
 
       }]);
 
-  motionDemoControllers.controller('FileListCtrl', ['$scope', '$modal', '$log', 'Video', 'DeleteVideo',
-    function($scope, $modal, $log, Video, DeleteVideo) {
+  motionDemoControllers.controller('FileListCtrl', ['$scope', '$modal', '$log', 'Video', 'DeleteVideo', '$rootScope',
+    function($scope, $modal, $log, Video, DeleteVideo, $rootScope) {
         $scope.videos = Video.query();
 
         $scope.deleteVideo= function(video) { // Delete a movie. Issues a DELETE to /api/movies/:id
@@ -99,7 +98,7 @@ motionDemoControllers.controller('ApiDocuCtrl', ['$scope', 'ApiDocu',
     motionDemoControllers.controller('ModalInstanceCtrl', function ($scope, $modalInstance) {
         $scope.cancel = function () {
           $modalInstance.dismiss('cancel');
-          $scope.completeUrl = "http://raspberrydh.ddns.net/video/mp4/";
+          $scope.completeUrl = "{{$rootScope.webservice_address}}/video/mp4/";
         };
       });
 
@@ -114,18 +113,17 @@ motionDemoControllers.controller('ApiDocuCtrl', ['$scope', 'ApiDocu',
                   };
         };
 
-        $scope.checkWebserviceAddress = function (address_webservice) {
-          $http.get(address_webservice).
+        $scope.checkWebserviceAddress = function () {
+          $http.get($rootScope.webservice_address).
           success(function(data, status, headers, config) {
-              console.log("erfolgreich");
+              console.log("erfolgreich verbunden");
               $rootScope.connected = true;
-              $rootScope.webservice_address = address_webservice;
               $location.path('/home');
               console.log($rootScope.webservice_address);
           }).
           error(function(data, status, headers, config) {
             $rootScope.connected = false;
-            console.log("nicht erfolgreich");
+            console.log("nicht erfolgreich verbunden");
           });
 
         };

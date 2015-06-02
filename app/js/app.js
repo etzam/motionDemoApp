@@ -13,7 +13,7 @@ var motionDemoApp = angular.module('motionDemoApp', [
   $rootScope.password.value = 'welcome';
   $rootScope.authenticated = false;
   $rootScope.connected = false;
-  $rootScope.webservice_address = "";
+  $rootScope.webservice_address = "http://raspberrydh.ddns.net";
 });
 
 motionDemoApp.config(['$routeProvider',

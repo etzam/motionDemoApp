@@ -4,9 +4,9 @@
 
 var motionDemoServices = angular.module('motionDemoServices', ['ngResource']);
 
-  motionDemoServices.factory('Video', ['$resource',
-    function($resource) {
-      return $resource('http://raspberrydh.ddns.net/files.json');
+  motionDemoServices.factory('Video', ['$resource', $rootScope,
+    function($resource, $rootScope) {
+      return $resource('http://raspberrydh.ddns.net/files/delete/files.json');
   }]);
 
   motionDemoServices.factory('DeleteVideo', ['$resource',

@@ -77,12 +77,12 @@
               <td>{{config.current_value}}</td>
               <td>
                 <div ng-repeat="allowedvalue in config.allowed_values" style="display:inline">
-                  <a href="http://raspberrydh.ddns.net/config/update?key={{config.key}}&value={{allowedvalue}}" class="btn btn-default">{{allowedvalue}}</a>
+                  <a href="{{webservice_address}}/config/update?key={{config.key}}&value={{allowedvalue}}" class="btn btn-default">{{allowedvalue}}</a>
                 </div>
               </td>
               <td>
                 <input ng-model="new_value" name="neuer_Wert">
-                <a href="http://raspberrydh.ddns.net/config/update?key={{config.key}}&value={{new_value}}" class="btn btn-default">Wert setzen</a>
+                <a href="{{webservice_address}}/config/update?key={{config.key}}&value={{new_value}}" class="btn btn-default">Wert setzen</a>
               </td>
             </tr>
           </tr>
