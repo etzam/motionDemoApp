@@ -4,55 +4,56 @@
 
 var motionDemoServices = angular.module('motionDemoServices', ['ngResource']);
 
-  motionDemoServices.factory('Video', ['$resource', $rootScope,
+  motionDemoServices.factory('Video', ['$resource', '$rootScope',
     function($resource, $rootScope) {
-      return $resource('http://raspberrydh.ddns.net/files/delete/files.json');
+      console.log($rootScope.webservice_address + '/files.json');
+      return $resource($rootScope.webservice_address + '/files.json');
   }]);
 
-  motionDemoServices.factory('DeleteVideo', ['$resource',
-    function($resource) {
-      return $resource('http://raspberrydh.ddns.net/files/delete/:filename', {}, {
+  motionDemoServices.factory('DeleteVideo', ['$resource','$rootScope',
+    function($resource, $rootScope) {
+      return $resource($rootScope.webservice_address + '/delete/:filename', {}, {
       'delete_video': {method:'DELETE'}
       });
   }]);
 
-  motionDemoServices.factory('Config', ['$resource',
-    function($resource) {
-      return $resource('http://raspberrydh.ddns.net/config.json', {}, {
+  motionDemoServices.factory('Config', ['$resource','$rootScope',
+    function($resource,$rootScope) {
+      return $resource($rootScope.webservice_address + '/config.json', {}, {
       query: {method:'GET', isArray:true}
       });
   }]);
 
-  motionDemoServices.factory('PurgeTime', ['$resource',
-    function($resource) {
-      return $resource('http://raspberrydh.ddns.net/config/purge.json', {}, {
+  motionDemoServices.factory('PurgeTime', ['$resource','$rootScope',
+    function($resource,$rootScope) {
+      return $resource($rootScope.webservice_address + '/config/purge.json', {}, {
       query: {method:'GET', isArray:false}
       });
   }]);
 
-  motionDemoServices.factory('SetPurgeTime', ['$resource',
-    function($resource) {
-      return $resource('http://raspberrydh.ddns.net/config/purge/update/:days_to_purge', {}, {
+  motionDemoServices.factory('SetPurgeTime', ['$resource','$rootScope',
+    function($resource,$rootScope) {
+      return $resource($rootScope.webservice_address + '/config/purge/update/:days_to_purge', {}, {
         'update': { method:'PUT', isArray:false}
       });
   }]);
 
-  motionDemoServices.factory('Beep', ['$resource',
-    function($resource) {
-      return $resource('http://raspberrydh.ddns.net/config/beep.json', {}, {
+  motionDemoServices.factory('Beep', ['$resource','$rootScope',
+    function($resource,$rootScope) {
+      return $resource($rootScope.webservice_address + '/config/beep.json', {}, {
       query: {method:'GET', isArray:false}
       });
   }]);
 
-  motionDemoServices.factory('SetBeep', ['$resource',
-    function($resource) {
+  motionDemoServices.factory('SetBeep', ['$resource','$rootScope',
+    function($resource,$rootScope) {
       return $resource('http://raspberrydh.ddns.net/config/beep/:beep_value', {}, {
         'update': { method:'PUT', isArray:false}
       });
   }]);
 
 motionDemoServices.factory('ApiDocu', ['$resource',
-    function($resource){
+    function($resource) {
       return $resource('resources/api-docu.json', {}, {
         query: {method:'GET', isArray:true}
       });
