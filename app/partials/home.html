@@ -2,14 +2,12 @@
   <div class="col-md-2"></div>
   <div class="col-md-3">
     <span class="label label-info">
-      Motion is running (<%=@status %>)
+      Motion is running
     </span>
   </div>
     <div class="col-md-5">
     <div class="livestream">
-      <% if @live_stream_url %>
         <img class="img-responsive" src="{{webservice_address}}:8081"/>
-      <% end %>
     </div>
   </div>
   <div class="col-md-2">
