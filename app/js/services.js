@@ -12,7 +12,7 @@ var motionDemoServices = angular.module('motionDemoServices', ['ngResource']);
 
   motionDemoServices.factory('DeleteVideo', ['$resource','$rootScope',
     function($resource, $rootScope) {
-      return $resource($rootScope.webservice_address + '/delete/:filename', {}, {
+      return $resource($rootScope.webservice_address + '/files/delete/:filename', {}, {
       'delete_video': {method:'DELETE'}
       });
   }]);

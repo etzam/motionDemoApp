@@ -1,12 +1,47 @@
 [
   {
+    "name":"config/beep",
+    "action":"Rückgabe Alarmton",
+    "description":"Gibt in einem JSON-Objekt zurück, ob der Alarmton eingeschalten oder ausgeschalten ist."
+  },
+  {
+    "name":"config/beep/:beep_value",
+    "action":"Ein-/Ausschalten des Alarmtons",
+    "description":":beep_value = on schaltet den Alarmton ein, beep_value = off schaltet den Alarmton aus"
+  },
+  {
+    "name":"config/purge.json",
+    "action":"Rückgabe Löschen alter Aufzeichnungen",
+    "description":"Gibt zurück, nach wie vielen Tagen eine Videodatei gelöscht werden soll."
+  },
+  {
+    "name":"config/purge/update/:days_to_purge",
+    "action":"Setzen Löschen alter Aufzeichnungen",
+    "description":":days_to_purge gibt an, nach wie vielen Tagen eine Videoaufzeichnung gelöscht werden soll"
+  },
+  {
+    "name":"config/update",
+    "action":"Überschreiben der Konfiguration",
+    "description":"Setzt neue Konfigurationswerte. Eine ausführlich Beschreibung der einzelnen Konfigurationsmöglichkeiten finden Sie unter folgendem Link: http://www.lavrsen.dk/foswiki/bin/view/Motion/ConfigFileOptions"
+  },
+  {
     "name":"files.json",
-    "action":"Auslieferung der Videodateien",
-    "description":"Gibt ein Array zurück, welcher die aufgenommenen Videos enthält."
+    "action":"Auslieferung der Aufzeichnungen",
+    "description":"Gibt ein Objekt zurück, welches die Dateinamen der Aufzeichnungen enthält"
+  }  ,
+  {
+    "name":"files/:filename",
+    "action":"Auslieferung des Download-Pfad",
+    "description":""
+  },
+  {
+    "name":"files/delete/:filename",
+    "action":"Löschen einer Aufzeichnung",
+    "description":"Löscht eine bestimmte Aufzeichnung. :filename gibt den Namen der Aufzeichnung an."
   },
   {
     "name":"config.json",
     "action":"Auslieferung der Konfiguration",
-    "description":"Gibt ein Objekt zurück, welches die Konfiguration von der motion-Bewegungserkennung enthält. Eine ausführlich Beschreibung der einzelnen Konfigurationsmöglichkeiten finden Sie unter folgendem Link: http://www.lavrsen.dk/foswiki/bin/view/Motion/ConfigFileOptions"    
+    "description":"Gibt ein Objekt zurück, welches die Konfiguration von der motion-Bewegungserkennung enthält. Eine ausführlich Beschreibung der einzelnen Konfigurationsmöglichkeiten finden Sie unter folgendem Link: http://www.lavrsen.dk/foswiki/bin/view/Motion/ConfigFileOptions"
   }
 ]

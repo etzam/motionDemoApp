@@ -66,13 +66,13 @@ motionDemoControllers.controller('ApiDocuCtrl', ['$scope', 'ApiDocu',
 
       }]);
 
-  motionDemoControllers.controller('FileListCtrl', ['$scope', '$modal', '$log', 'Video', 'DeleteVideo', '$rootScope',
-    function($scope, $modal, $log, Video, DeleteVideo, $rootScope) {
+  motionDemoControllers.controller('FileListCtrl', ['$scope', '$modal', '$log', 'Video', 'DeleteVideo', '$rootScope','$location', '$route',
+    function($scope, $modal, $log, Video, DeleteVideo, $rootScope, $location, $route) {
         $scope.videos = Video.query();
 
-        $scope.deleteVideo= function(video) { // Delete a movie. Issues a DELETE to /api/movies/:id
-            console.log(video);
+        $scope.deleteVideo= function(video) {
              DeleteVideo.delete_video({filename: video});
+             $route.reload();
            };
 
 
