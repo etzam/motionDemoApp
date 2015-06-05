@@ -1,4 +1,4 @@
-
+<!--Authentifizierungsbereich, wird angezeigt, wenn der Benutzer nicht authentifiziert ist-->
 <div ng-if="!authenticated">
   <div ng-controller="loginCtrl">
     <p>Der Zugriff auf die Konfigurationsoberfläche ist kennwortgeschützt!</p>
@@ -9,6 +9,8 @@
     </form>
   </div>
 </div>
+
+<!--Konfigurationsbereich, wird angezeigt, wenn der Benutzer authentifiziert ist-->
 <div ng-if="authenticated">
   <div class="col-md-2"></div>
   <div class="col-md-8" ng-controller="ConfigCtrl">
@@ -25,6 +27,7 @@
       <input type="submit" ng-click="updatePassword(new_password)" value="Sichern" />
     </form>
 
+    <!--Auflistung aller Konfigurationen mit den jeweiligen Werten-->
     <h3>Konfiguration ändern</h3>
     <div class="row">
 

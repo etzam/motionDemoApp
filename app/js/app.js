@@ -2,36 +2,41 @@
 
 /* App Module */
 
+//laden der abhängigen Units
 var motionDemoApp = angular.module('motionDemoApp', [
   'ngRoute',
   'motionDemoControllers',
-  'motionDemoFilters',
   'motionDemoServices'
 ])
+//$rootScope initialsieren beim Programmstart
 .run(function ($rootScope) {
+  //Password für Konfigurationsoberfläche im rootScope hinterlegen
   $rootScope.password = {};
   $rootScope.password.value = 'welcome';
+  //der Benutzer soll zunächst nicht authentifiziert sein
   $rootScope.authenticated = false;
+  //der Benutzer soll bei Beginn nicht mit einem Webservice verbunden sein
   $rootScope.connected = false;
   $rootScope.webservice_address = "http://raspberrydh.ddns.net";
 });
 
+//Definition der Routen
 motionDemoApp.config(['$routeProvider',
   function($routeProvider) {
     $routeProvider.
-      when('/home', {
+      when('/home', { //Startseite mit Livevideo von der Webcam
         templateUrl: 'partials/home.html',
         controller: 'HomeCtrl'
       }).
-      when('/files', {
+      when('/files', { //enthält die Videoaufzeichnungen
         templateUrl: 'partials/file-list.html',
         controller: 'FileListCtrl'
       }).
-      when('/config', {
+      when('/config', { //enthält die Konfigurationen
         templateUrl: 'partials/config.html',
         controller: 'ConfigCtrl'
       }).
-      when('/apidocu', {
+      when('/apidocu', { //enhält die Webservice-Beschreibung mit den Schnittstellenmethoden
         templateUrl: 'partials/api-docu.html',
         controller: 'ApiDocuCtrl'
       }).

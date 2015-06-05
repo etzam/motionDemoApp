@@ -5,7 +5,6 @@
   <title>Motion-Demo</title>
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
   <link rel="stylesheet" href="css/app.css">
-
   <script src="bower_components/jquery/dist/jquery.js"></script>
   <script src="bower_components/angular/angular.js"></script>
   <script src="bower_components/angular-animate/angular-animate.js"></script>
@@ -30,6 +29,7 @@
           </div>
       </div>
   </div>
+  <!--Navigationsbereich-->
   <div class="row">
       <div class="col-md-12">
         <nav class="navbar navbar-inverse" role="banner">
@@ -61,6 +61,7 @@
       </div>
   </div>
 
+  <!-- Eingabe der Adresse für einen Webservice, nur wenn diese richtig ist, soll conntected gesetzt werden-->
   <div class="view-container" >
   <div ng-if="!connected">
     <div ng-controller="loginCtrl">
@@ -72,6 +73,7 @@
       </form>
     </div>
   </div>
+  <!--Inhalte der partials-Dokumente, vorausgesetzt man ist mit dem Webservice verbunden-->
   <div ng-view class="view-frame" ng-if="connected"></div>
   </div>
 

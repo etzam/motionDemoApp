@@ -4,79 +4,90 @@
 
 var motionDemoControllers = angular.module('motionDemoControllers', ['ui.bootstrap']);
 
+  //HomeCtrl
   motionDemoControllers.controller('HomeCtrl', ['$scope',
     function($scope) {
-      $scope.orderProp = 'age';
+        //enthält bislang keine Logik
     }]);
 
-motionDemoControllers.controller('ApiDocuCtrl', ['$scope', 'ApiDocu',
+
+  motionDemoControllers.controller('ApiDocuCtrl', ['$scope', 'ApiDocu',
     function($scope, ApiDocu) {
+      //ApiDocuCtrl holt sich die im api-docu.json enthaltene Schnittstellenbeschreibung über den ServiceController
       $scope.apidocus = ApiDocu.query();
     }]);
 
+
   motionDemoControllers.controller('ConfigCtrl', ['$scope', '$rootScope','Config', 'PurgeTime', 'SetPurgeTime', 'Beep', 'SetBeep',
-      function($scope, $rootScope, Config, PurgeTime, SetPurgeTime, Beep, SetBeep) {
-          //motion-config
-          $scope.configs = Config.query();
+    function($scope, $rootScope, Config, PurgeTime, SetPurgeTime, Beep, SetBeep) {
+        //holt sich die Konfiguration über den ServiceController, welcher den Webservice konsumiert
+      $scope.configs = Config.query();
 
-          //Purge-time
-          $scope.purgeTime = PurgeTime.query();
-          var pt = $scope.purgeTime;
 
-          //Passwort
-          $scope.updatePassword = function(new_password) {
-            $rootScope.password.value = new_password;
-          }
+      //überschreiben des Passwort für die Konfigurationsoberlfäche
+      $scope.updatePassword = function(new_password) {
+        $rootScope.password.value = new_password;
+      }
 
+      //Toggeln des inputType: anzeigen des Passwort im Klartext bzw. verstecken
+      $scope.inputType = 'password';
+      $scope.hideShowPassword = function() {
+        if ($scope.inputType == 'password')
+          $scope.inputType = 'text';
+        else
           $scope.inputType = 'password';
-          $scope.hideShowPassword = function() {
-            if ($scope.inputType == 'password')
-              $scope.inputType = 'text';
-            else
-              $scope.inputType = 'password';
-          };
+      };
 
-          $scope.setPurgeValue = function (new_purge_value) {
-            pt.days_to_purge = new_purge_value;
-            SetPurgeTime.update({days_to_purge:pt.days_to_purge}, pt);
-          };
+      //PurgeTime beschreibt nach welcher Anzahl von Tagen eine Aufzeichnung gelöscht werden soll
+      $scope.purgeTime = PurgeTime.query();
+      var pt = $scope.purgeTime;
 
-          //beep_vaule
-          $scope.beep = Beep.query();
+      //überschreibt die PurgeTime
+      $scope.setPurgeValue = function (new_purge_value) {
+        pt.days_to_purge = new_purge_value;
+        SetPurgeTime.update({days_to_purge:pt.days_to_purge}, pt);
+      };
 
-          console.log($scope.beep);
-          if ($scope.beep.beep_value == 'on')
-            $scope.currentBeep = true
-          else
-            $scope.currentBeep = false;
+      //beep ist das Synoym für den Alarmton, Abfrage ob Alarmton eingeschaltet ist über ServiceController
+      $scope.beep = Beep.query();
 
-          $scope.EnableBeepValue = function () {
-            console.log('einschalten');
-            $scope.currentBeep = true;
-            $scope.beep.beep_value = 'on';
-            SetBeep.update({beep_value:$scope.beep.beep_value}, $scope.beep);
-          };
+      //Toggeln der Schaltflächen ein-/ausschalten: wenn beep_value auf on soll "ausschalten" aktiviert sein, bei off "einschalten"
+      if ($scope.beep.beep_value == 'on')
+        $scope.currentBeep = true
+      else
+        $scope.currentBeep = false;
 
-          $scope.DisableBeepValue = function () {
-            console.log('ausschalten');
-            $scope.currentBeep = false;
-            $scope.beep.beep_value = 'off';
-            SetBeep.update({beep_value:$scope.beep.beep_value}, $scope.beep);
-          };
+      //einschalten des Alarmtons
+      $scope.EnableBeepValue = function () {
+        console.log('einschalten');
+        $scope.currentBeep = true;
+        $scope.beep.beep_value = 'on';
+        SetBeep.update({beep_value:$scope.beep.beep_value}, $scope.beep);
+      };
 
-      }]);
+      //ausschalten des Alarmtons
+      $scope.DisableBeepValue = function () {
+        console.log('ausschalten');
+        $scope.currentBeep = false;
+        $scope.beep.beep_value = 'off';
+        SetBeep.update({beep_value:$scope.beep.beep_value}, $scope.beep);
+      };
 
+  }]);
+
+  //FileListCtrl ist der Controller für die Seite mit den Videoaufzeichnungen
   motionDemoControllers.controller('FileListCtrl', ['$scope', '$modal', '$log', 'Video', 'DeleteVideo', '$rootScope','$location', '$route',
     function($scope, $modal, $log, Video, DeleteVideo, $rootScope, $location, $route) {
+        //holen der Videoaufzeichnungen
         $scope.videos = Video.query();
 
+        //löschen einer Videoaufzeichnung
         $scope.deleteVideo= function(video) {
              DeleteVideo.delete_video({filename: video});
              $route.reload();
            };
 
-
-
+        //Popup für das Anzeigen einer Aufzeichnung
         $scope.open = function (size) {
 
           var modalInstance = $modal.open({
@@ -92,18 +103,19 @@ motionDemoControllers.controller('ApiDocuCtrl', ['$scope', 'ApiDocu',
         };
       }]);
 
-      // Please note that $modalInstance represents a modal window (instance) dependency.
-      // It is not the same as the $modal service used above.
 
-    motionDemoControllers.controller('ModalInstanceCtrl', function ($scope, $modalInstance) {
-        $scope.cancel = function () {
-          $modalInstance.dismiss('cancel');
-          $scope.completeUrl = "{{$rootScope.webservice_address}}/video/mp4/";
-        };
-      });
+  //Popup für Anzeigen einer Aufzeichnung
+  motionDemoControllers.controller('ModalInstanceCtrl', function ($scope, $modalInstance) {
+      $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+        $scope.completeUrl = "{{$rootScope.webservice_address}}/video/mp4/";
+      };
+    });
 
-    motionDemoControllers.controller('loginCtrl', ['$scope','$rootScope', '$location', '$http',
+  //loginCtrl für das Einloggen in die Konfigurationsoberfläche bzw. für das Verbinden zu einem Webservice
+  motionDemoControllers.controller('loginCtrl', ['$scope','$rootScope', '$location', '$http',
      function ($scope, $rootScope, $location, $http) {
+       //Passwortüberprüfung mit dem eingegebenen Passwort
         $scope.checkPassword = function (user_password) {
           if ($rootScope.password.value == user_password){
                     $location.path('/config');
@@ -113,7 +125,9 @@ motionDemoControllers.controller('ApiDocuCtrl', ['$scope', 'ApiDocu',
                   };
         };
 
+        //Webservice-Adresse überprüfen
         $scope.checkWebserviceAddress = function () {
+          //eine HTTP-Anfrage zum Webserivce versenden, bei Reponse connected auf true, bei error conntected auf false
           $http.get($rootScope.webservice_address).
           success(function(data, status, headers, config) {
               console.log("erfolgreich verbunden");
@@ -127,4 +141,4 @@ motionDemoControllers.controller('ApiDocuCtrl', ['$scope', 'ApiDocu',
           });
 
         };
-      }]);
+    }]);
