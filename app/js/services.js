@@ -55,7 +55,7 @@ var motionDemoServices = angular.module('motionDemoServices', ['ngResource']);
   //setzt einen neuen Wert über :beep_value (Wert von :beep_value: on/off)
   motionDemoServices.factory('SetBeep', ['$resource','$rootScope',
     function($resource,$rootScope) {
-      return $resource('http://raspberrydh.ddns.net/config/beep/:beep_value', {}, {
+      return $resource($rootScope.webservice_address + 'config/beep/:beep_value', {}, {
         'update': { method:'PUT', isArray:false}
       });
   }]);
