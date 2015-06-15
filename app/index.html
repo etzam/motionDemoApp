@@ -25,7 +25,7 @@
   <div class="row">
       <div class="col-md-12">
           <div class="logo">
-            <a href="/"><img src="img/banner.jpg"></a>
+            <a href="#/home"><img src="img/banner.jpg"></a>
           </div>
       </div>
   </div>
@@ -67,7 +67,7 @@
     <div ng-controller="loginCtrl">
       <p>Bitte geben Sie zunächst die IP-Adresse oder die URL des Webservices an.</p>
       <form>
-        IP-Adresse/URL des Webservices: <input type="text" ng-model="p_address" required />
+        IP-Adresse/URL des Webservices (inkl. http://): <input type="text" ng-model="p_address" required />
         <br>
         <input type="submit" ng-click="checkWebserviceAddress(p_address)" value="Verbinden" />
       </form>

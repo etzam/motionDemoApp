@@ -108,7 +108,7 @@ var motionDemoControllers = angular.module('motionDemoControllers', ['ui.bootstr
   motionDemoControllers.controller('ModalInstanceCtrl', function ($scope, $modalInstance) {
       $scope.cancel = function () {
         $modalInstance.dismiss('cancel');
-        $scope.completeUrl = "{{$rootScope.webservice_address}}/video/mp4/";
+        $scope.completeUrl = "{{$rootScope.webservice_address}}/public/video/";
       };
     });
 
