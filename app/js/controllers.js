@@ -126,12 +126,13 @@ var motionDemoControllers = angular.module('motionDemoControllers', ['ui.bootstr
         };
 
         //Webservice-Adresse überprüfen
-        $scope.checkWebserviceAddress = function () {
+        $scope.checkWebserviceAddress = function (p_address) {
           //eine HTTP-Anfrage zum Webserivce versenden, bei Reponse connected auf true, bei error conntected auf false
           $http.get($rootScope.webservice_address).
           success(function(data, status, headers, config) {
               console.log("erfolgreich verbunden");
               $rootScope.connected = true;
+              $rootScope.webservice_address = p_address; 
               $location.path('/home');
               console.log($rootScope.webservice_address);
           }).
