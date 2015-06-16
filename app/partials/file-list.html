@@ -19,28 +19,26 @@
         {{video}}
       </td>
       <td>
-        <a href="{{webservice_address}}/files/{{video}}" class="btn btn-info" role="button">Download</a>
+        <a href="{{webservice_address}}/video/{{video}}" download="{{video}}" class="btn btn-info" role="button">Download</a>
       </td>
         <td>
           <a class="btn btn-danger"  ng-click="deleteVideo(video)">Delete</a>
         </td>
         <td>
-      <!--
+        <!--modaler Dialog für das Anzeigen der Videos-->
         <script type="text/ng-template" id="myModalContent.html">
-            <div class="modal-header">
-                <h3 class="modal-title">Aufnahme</h3>
-            </div>
-            <div class="modal-body">
-              <video controls="controls" src="{{webservice_address}}/files/{{video}}"></video>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
-            </div>
+        <div class="modal-header">
+          <h3 class="modal-title">Videoaufzeichnung {{ video }}</h3>
+        </div>
+        <div class="modal-body">
+            <video controls="controls" ng-src="{{trustSrc(video)}}"></video>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>
         </script>
-        <video ng-src="{{webservice_address}}/files/{{video}}" controls></video>
-        <button class="btn btn-default" ng-click="open()">Ansehen</button>
-      -->
-        <a href="{{webservice_address}}/video/{{video}}"> Video ansehen</a>
+        <button class="btn btn-default" ng-click="open(video)">Video ansehen</button>
+        <!--<a href="{{webservice_address}}/video/{{video}}">Video ansehen</a>-->
         </td>
       </tr>
     </table>

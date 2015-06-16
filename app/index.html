@@ -71,6 +71,7 @@
         <br>
         <input type="submit" ng-click="checkWebserviceAddress(p_address)" value="Verbinden" />
       </form>
+      <div ng-if="connection_error" style="color:red">Fehler beim Verbinden zum Webservice!</div>
     </div>
   </div>
   <!--Inhalte der partials-Dokumente, vorausgesetzt man ist mit dem Webservice verbunden-->

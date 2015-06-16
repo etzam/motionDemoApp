@@ -17,7 +17,8 @@ var motionDemoApp = angular.module('motionDemoApp', [
   $rootScope.authenticated = false;
   //der Benutzer soll bei Beginn nicht mit einem Webservice verbunden sein
   $rootScope.connected = false;
-  $rootScope.webservice_address = "http://raspberrydh.ddns.net";
+  $rootScope.webservice_address = "";
+  $rootScope.connection_error = false;
 });
 
 //Definition der Routen

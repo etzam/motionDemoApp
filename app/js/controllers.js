@@ -87,30 +87,56 @@ var motionDemoControllers = angular.module('motionDemoControllers', ['ui.bootstr
              $route.reload();
            };
 
-        //Popup für das Anzeigen einer Aufzeichnung
-        $scope.open = function (size) {
 
-          var modalInstance = $modal.open({
-            templateUrl: 'myModalContent.html',
-            controller: 'ModalInstanceCtrl',
-            size: size,
-            resolve: {
-              items: function () {
-                return $scope.items;
+        //Popup für das Anzeigen einer Aufzeichnung
+        $scope.animationsEnabled = true;
+        $scope.items = ['item1', 'item2', 'item3'];
+
+        //öffnen des modalen Dialogs
+        $scope.open = function (video,size) {
+            $scope.items = video;
+            var modalInstance = $modal.open({
+              animation: $scope.animationsEnabled,
+              templateUrl: 'myModalContent.html',
+              controller: 'ModalInstanceCtrl',
+              size: size,
+              resolve: {
+                items: function () {
+                  return $scope.items;
+                }
               }
-            }
-          });
-        };
+            });
+
+            modalInstance.result.then(function (selectedItem) {
+                $scope.selected = selectedItem;
+              }, function () {
+                $log.info('Modal dismissed at: ' + new Date());
+              });
+            };
+
+            $scope.toggleAnimation = function () {
+            $scope.animationsEnabled = !$scope.animationsEnabled;
+            };
+
       }]);
 
 
   //Popup für Anzeigen einer Aufzeichnung
-  motionDemoControllers.controller('ModalInstanceCtrl', function ($scope, $modalInstance) {
+  motionDemoControllers.controller('ModalInstanceCtrl', ['$scope','$rootScope', '$modalInstance', 'items', '$sce',
+    function ($scope, $rootScope, $modalInstance,items,$sce) {
+      //Konkatenation zum vollständigen Pfad der Aufzeichnung
+      $scope.video = $rootScope.webservice_address + '/video/'+items;
+
+      //als vertrauenswürdige URL deklarieren
+      $scope.trustSrc = function(src) {
+        return $sce.trustAsResourceUrl(src);
+    }
+
+
       $scope.cancel = function () {
         $modalInstance.dismiss('cancel');
-        $scope.completeUrl = "{{$rootScope.webservice_address}}/public/video/";
       };
-    });
+    }]);
 
   //loginCtrl für das Einloggen in die Konfigurationsoberfläche bzw. für das Verbinden zu einem Webservice
   motionDemoControllers.controller('loginCtrl', ['$scope','$rootScope', '$location', '$http',
@@ -127,7 +153,8 @@ var motionDemoControllers = angular.module('motionDemoControllers', ['ui.bootstr
 
         //Webservice-Adresse überprüfen
         $scope.checkWebserviceAddress = function (p_address) {
-          //eine HTTP-Anfrage zum Webserivce versenden, bei Reponse connected auf true, bei error conntected auf false
+          //eine HTTP-Anfrage zum Webserivce versenden, bei Reponse connected auf true,
+          //bei error conntected auf false und Fehlermeldung ausgeben
           $http.get(p_address).
           success(function(data, status, headers, config) {
               console.log("erfolgreich verbunden");
@@ -140,6 +167,7 @@ var motionDemoControllers = angular.module('motionDemoControllers', ['ui.bootstr
             $rootScope.connected = false;
             $rootScope.webservice_address = p_address;
             console.log("nicht erfolgreich verbunden");
+            $rootScope.connection_error = true;
           });
 
         };
