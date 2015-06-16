@@ -50,8 +50,10 @@ var motionDemoControllers = angular.module('motionDemoControllers', ['ui.bootstr
 
       //beep ist das Synoym für den Alarmton, Abfrage ob Alarmton eingeschaltet ist über ServiceController
       $scope.beep = Beep.query();
+      var b = $scope.beep;
 
       //Toggeln der Schaltflächen ein-/ausschalten: wenn beep_value auf on soll "ausschalten" aktiviert sein, bei off "einschalten"
+      console.log(b);
       if ($scope.beep.beep_value == 'on')
         $scope.currentBeep = true
       else
@@ -90,7 +92,6 @@ var motionDemoControllers = angular.module('motionDemoControllers', ['ui.bootstr
 
         //Popup für das Anzeigen einer Aufzeichnung
         $scope.animationsEnabled = true;
-        $scope.items = ['item1', 'item2', 'item3'];
 
         //öffnen des modalen Dialogs
         $scope.open = function (video,size) {
